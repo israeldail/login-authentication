@@ -1,6 +1,7 @@
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
+			token: null, 
 			message: null,
 			demo: [
 				{
@@ -13,13 +14,58 @@ const getState = ({ getStore, getActions, setStore }) => {
 					background: "white",
 					initial: "white"
 				}
-			]
+			],
 		},
 		actions: {
 			// Use getActions to call a function within a fuction
 			exampleFunction: () => {
 				getActions().changeColor(0, "green");
 			},
+
+			syncTokenFromSessionStorage: () => {
+				const token = sessionStorage.getItem('token');
+				console.log("application just loaded, syncing the session storage token")
+				if(token && token != "" && token != undefined) setStore({token: token})
+			
+			},
+
+			login: async (email, password) => {
+				const opts = {
+					method: "POST",
+					headers: {
+					  "Content-Type": "application/json",
+					},
+					body: JSON.stringify({
+					  email: email,
+					  password: password,
+					}),
+				  };
+
+				  try {
+					const resp=await fetch(
+						"https://3001-israeldail-loginauthent-0vg4h4ai9c0.ws-us59.gitpod.io/api/token",
+						opts
+					  )
+					  if (resp.status !== 200) {
+						alert("there has been some error");
+						return false;
+					  } 
+	
+					  const data =await resp.json()
+					  console.log("this came from the backend", data);
+					  sessionStorage.setItem("token", data.access_token);
+					  setStore({token: data.access_token})
+					  return true;
+					}
+
+					catch(error) {
+						console.error('There has been an error logging in')
+					}
+
+
+				  },
+			  
+				  
 
 			getMessage: async () => {
 				try{

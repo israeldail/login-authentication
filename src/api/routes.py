@@ -18,7 +18,7 @@ api = Blueprint('api', __name__)
 def create_token():
     email = request.json.get("email", User)
     password = request.json.get("password", User)
-    if email != email or password != password:
+    if email != user.email or password != user.password:
         return jsonify({"msg": "Bad email or password"}), 401
 
     access_token = create_access_token(identity=email)
@@ -44,4 +44,12 @@ def create_user():
                     password=request_body_user["password"])
     db.session.add(new_user)
     db.session.commit()
-    return jsonify(request_body_user), 200
+    payload = {
+        'msg': 'Your account has been registered successfully.',
+    }
+    return jsonify(payload), 200
+
+
+
+
+

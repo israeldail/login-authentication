@@ -41,7 +41,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 		}
 
 		try {
-			const resp = await fetch("https://3001-israeldail-loginauthent-4j60fk6va7z.ws-us59.gitpod.io/api/signup",
+			const resp = await fetch("https://3001-israeldail-loginauthent-5iki254x0ym.ws-us59.gitpod.io/api/user",
             opts)
 			if(resp.status !== 200) {
 				alert('there was an error signing up')
@@ -49,6 +49,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			}
 			const data = await resp.json();
 			console.log("this came from the backend", data)
+      setStore({ data: data});
 			
 		} catch(error) {
 			console.error('there has been an error with the sign up')
@@ -69,7 +70,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
         try {
           const resp = await fetch(
-            "https://3001-israeldail-loginauthent-4j60fk6va7z.ws-us59.gitpod.io/api/token",
+            "https://3001-israeldail-loginauthent-5iki254x0ym.ws-us59.gitpod.io/api/token",
             opts
           );
           if (resp.status !== 200) {

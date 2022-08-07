@@ -9,19 +9,19 @@ from flask_jwt_extended import create_access_token
 from flask_jwt_extended import get_jwt_identity
 from flask_jwt_extended import jwt_required
 
-
 #create flask app
 api = Blueprint('api', __name__)
 
 
-@api.route("/token", methods=["POST"])
+
+@api.route("/token", methods=["GET", "POST"])
 def create_token():
-    email = request.json.get("email", User)
-    password = request.json.get("password", User)
-    if email != user.email or password != user.password:
+    request_body_user = request.get_json()
+    userLogin = User(email=request_body_user["email"], password=request_body_user["password"])
+    if request_body_user["email"] != request_body_user["email"] or request_body_user["password"] != request_body_user["password"]:
         return jsonify({"msg": "Bad email or password"}), 401
 
-    access_token = create_access_token(identity=email)
+    access_token = create_access_token(identity=request_body_user["email"])
     return jsonify(access_token=access_token)
 
 

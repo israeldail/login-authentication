@@ -41,7 +41,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 		}
 
 		try {
-			const resp = await fetch("https://3001-israeldail-loginauthent-5iki254x0ym.ws-us59.gitpod.io/api/user",
+			const resp = await fetch("https://3001-israeldail-loginauthent-a8j6j2fj4zd.ws-us60.gitpod.io/api/user",
             opts)
 			if(resp.status !== 200) {
 				alert('there was an error signing up')
@@ -70,7 +70,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
         try {
           const resp = await fetch(
-            "https://3001-israeldail-loginauthent-5iki254x0ym.ws-us59.gitpod.io/api/token",
+            "https://3001-israeldail-loginauthent-a8j6j2fj4zd.ws-us60.gitpod.io/api/token",
             opts
           );
           if (resp.status !== 200) {
